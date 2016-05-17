@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Simple Contacts App</string>
+    <string-array name="spinner_options">
+        <item>All</item>
+        <item>Name</item>
+        <item>Phone</item>
+    </string-array>
+</resources>
