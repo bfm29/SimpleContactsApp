@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import pt.ipleiria.simplecontactsapp.R;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<String> contacts;
@@ -44,13 +47,28 @@ public class MainActivity extends AppCompatActivity {
         Spinner s = (Spinner) findViewById(R.id.spinner_search);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter_s = ArrayAdapter.createFromResource(this,
-                R.array.spinner, android.R.layout.simple_spinner_item);
+                R.array.spinner_options, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         listView.setAdapter(adapter);
 
-        Toast.makeText(MainActivity.this,"Showing searched contacts.", Toast.LENGTH_SHORT).show();
+     
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "clicou no item" + position, Toast.LENGTH_SHORT).show();
+
+                contacts.remove(position);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, contacts);
+
+                ListView listView = (ListView) findViewById(R.id.listView_contacts);
+                listView.setAdapter(adapter);
+            }
+        });
+
 
 
     }
